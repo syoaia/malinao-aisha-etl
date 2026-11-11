@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ETL Exercise</title>
+    <style>
+      :root {
+        --bg: #f3f7ff;
+        --card: #ffffff;
+        --primary: #1d4ed8;
+        --primary-dark: #1e3a8a;
+        --text: #1f2937;
+        --muted: #5f6b7a;
+        --border: #dfe7f5;
+        --panel: #f8fafc;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(135deg, #edf4ff, #f8fafc);
+        color: var(--text);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 32px auto;
+        padding: 24px;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+        padding: 28px;
+      }
+
+      h1, h2 {
+        margin: 0 0 12px;
+        color: var(--primary-dark);
+      }
+
+      .meta {
+        margin-bottom: 24px;
+        padding: 12px 16px;
+        background: #eff6ff;
+        border-left: 4px solid var(--primary);
+        border-radius: 10px;
+        font-weight: 600;
+      }
+
+      .input-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .file-box {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 14px;
+      }
+
+      .file-box label {
+        font-weight: 700;
+      }
+
+      input[type="file"] {
+        border: 1px solid var(--border);
+        background: white;
+        border-radius: 10px;
+        padding: 12px;
+        width: 100%;
+      }
+
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 18px 0 16px;
+      }
+
+      button {
+        border: none;
+        border-radius: 10px;
+        padding: 12px 18px;
+        background: var(--primary);
+        color: white;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      button.secondary {
+        background: #e2e8f0;
+        color: var(--text);
+      }
+
+      .status {
+        margin-bottom: 18px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0 30px;
+        background: var(--panel);
+      }
+
+      th, td {
+        border: 1px solid var(--border);
+        padding: 10px 12px;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        background: #e8f0ff;
+      }
+
+      pre {
+        margin: 0;
+        background: #0f172a;
+        color: #e2e8f0;
+        border-radius: 12px;
+        padding: 18px;
+        white-space: pre-wrap;
+        word-break: break-word;
+        min-height: 240px;
+        overflow-x: auto;
+      }
+
+      @media (max-width: 700px) {
+        .container { padding: 14px; }
+        .card { padding: 18px; }
+        .controls { flex-direction: column; align-items: stretch; }
+        button { width: 100%; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h1>ETL Exercise</h1>
+
+        <div class="meta">
+          Student: Aisha Malinao<br />
+          Schedule: IT 3206N MW 6:00-8:30<br />
+          Source files: SIS, LMS, and Accounting CSVs
+        </div>
+
+        <h2>1. Upload Source CSV Files</h2>
+        <div class="input-grid">
+          <div class="file-box">
+            <label for="sisFile">Student Information System (SIS)</label>
+            <input id="sisFile" type="file" accept=".csv,text/csv" />
+          </div>
+          <div class="file-box">
+            <label for="lmsFile">Learning Management System (LMS)</label>
+            <input id="lmsFile" type="file" accept=".csv,text/csv" />
+          </div>
+          <div class="file-box">
+            <label for="accountingFile">Accounting System</label>
+            <input id="accountingFile" type="file" accept=".csv,text/csv" />
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="loadSampleBtn" class="secondary" type="button">Load Provided ETL Data</button>
+          <button id="runEtlBtn" type="button">RUN ETL</button>
+          <button id="downloadBtn" class="secondary" type="button">Download JSON</button>
+        </div>
+
+        <div id="status" class="status">Upload the three CSV files and click RUN ETL.</div>
+
+        <h2>2. Data Mapping</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Source System</th>
+              <th>Source Field</th>
+              <th>Target Field</th>
+              <th>Target Type</th>
+              <th>Transformation / Rule</th>
+            </tr>
+          </thead>
+          <tbody id="mappingTableBody"></tbody>
+        </table>
+
+        <h2>3. JSON Output</h2>
+        <pre id="jsonOutput">{
+  "message": "No ETL data loaded yet."
+}</pre>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
